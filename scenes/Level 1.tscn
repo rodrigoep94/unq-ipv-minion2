@@ -1,0 +1,114 @@
+[gd_scene load_steps=15 format=2]
+
+[ext_resource path="res://scenes/Violeta.tscn" type="PackedScene" id=1]
+[ext_resource path="res://scenes/Caja.tscn" type="PackedScene" id=2]
+[ext_resource path="res://img/piso1.png" type="Texture" id=3]
+[ext_resource path="res://scenes/AvanzarLbl.tscn" type="PackedScene" id=4]
+[ext_resource path="res://scenes/Pentagono.tscn" type="PackedScene" id=5]
+[ext_resource path="res://scripts/Level 1.gd" type="Script" id=6]
+[ext_resource path="res://img/background.jpg" type="Texture" id=7]
+[ext_resource path="res://scenes/RestartButton.tscn" type="PackedScene" id=8]
+[ext_resource path="res://scenes/Hint.tscn" type="PackedScene" id=9]
+[ext_resource path="res://scenes/ExitBtn.tscn" type="PackedScene" id=10]
+[ext_resource path="res://scenes/BackgroundPlayer.tscn" type="PackedScene" id=11]
+
+[sub_resource type="RectangleShape2D" id=1]
+extents = Vector2( 650.579, 49.8695 )
+
+[sub_resource type="RectangleShape2D" id=2]
+extents = Vector2( 70.412, 406.495 )
+
+[sub_resource type="RectangleShape2D" id=3]
+extents = Vector2( 710.231, 56.7412 )
+
+[node name="Nivel" type="Node2D"]
+script = ExtResource( 6 )
+
+[node name="Fondo" type="ParallaxBackground" parent="."]
+
+[node name="ParallaxLayer" type="ParallaxLayer" parent="Fondo"]
+
+[node name="Floor" type="StaticBody2D" parent="Fondo/ParallaxLayer"]
+position = Vector2( 0, 115 )
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="Sprite" type="Sprite" parent="Fondo/ParallaxLayer/Floor"]
+position = Vector2( 0, 508 )
+scale = Vector2( 13.6539, 1 )
+texture = ExtResource( 3 )
+centered = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Fondo/ParallaxLayer/Floor"]
+position = Vector2( 626.901, 556.962 )
+shape = SubResource( 1 )
+
+[node name="Left Margin" type="RigidBody2D" parent="Fondo/ParallaxLayer"]
+mode = 1
+sleeping = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Fondo/ParallaxLayer/Left Margin"]
+position = Vector2( -69.6708, 311.03 )
+shape = SubResource( 2 )
+
+[node name="TopMargin" type="RigidBody2D" parent="Fondo/ParallaxLayer"]
+mode = 1
+sleeping = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Fondo/ParallaxLayer/TopMargin"]
+position = Vector2( 597.905, -58.0266 )
+shape = SubResource( 3 )
+
+[node name="RightMargin" type="RigidBody2D" parent="Fondo/ParallaxLayer"]
+mode = 1
+sleeping = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Fondo/ParallaxLayer/RightMargin"]
+position = Vector2( 1349.12, 311.03 )
+shape = SubResource( 2 )
+
+[node name="background" type="Sprite" parent="Fondo/ParallaxLayer"]
+position = Vector2( 638.07, 415.647 )
+z_index = -1
+texture = ExtResource( 7 )
+
+[node name="ExitBtn" parent="Fondo/ParallaxLayer/background" instance=ExtResource( 10 )]
+position = Vector2( 294.653, -903.709 )
+
+[node name="Violeta" parent="." instance=ExtResource( 1 )]
+position = Vector2( -274.197, 117.449 )
+z_index = 2
+
+[node name="Caja1" parent="." instance=ExtResource( 2 )]
+position = Vector2( 216, 124 )
+collision_layer = 2147483649
+collision_mask = 2147483649
+mode = 3
+
+[node name="PolygonEnd" parent="." instance=ExtResource( 5 )]
+
+[node name="AvanzarLbl" parent="." instance=ExtResource( 4 )]
+margin_top = 89.0
+margin_bottom = 125.0
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+
+[node name="RestartButton" parent="." instance=ExtResource( 8 )]
+margin_left = 1226.61
+margin_top = 29.6924
+margin_right = 1254.61
+margin_bottom = 65.6924
+
+[node name="Hint" parent="." instance=ExtResource( 9 )]
+text = "Llega al rombo para avanzar
+de nivel"
+align = 1
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 3.0
+
+[node name="BackgroundPlayer" parent="." instance=ExtResource( 11 )]
+[connection signal="body_entered" from="PolygonEnd" to="." method="_on_PolygonEnd_body_entered"]
+[connection signal="body_exited" from="PolygonEnd" to="." method="_on_PolygonEnd_body_exited"]
+[connection signal="pressed" from="RestartButton" to="." method="_on_RestartButton_pressed"]
+[connection signal="timeout" from="Timer" to="." method="_on_Timer_timeout"]

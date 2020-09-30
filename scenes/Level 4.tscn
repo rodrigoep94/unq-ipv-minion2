@@ -1,0 +1,107 @@
+[gd_scene load_steps=15 format=2]
+
+[ext_resource path="res://scenes/Violeta.tscn" type="PackedScene" id=1]
+[ext_resource path="res://scenes/Plataforma.tscn" type="PackedScene" id=2]
+[ext_resource path="res://scenes/Caja.tscn" type="PackedScene" id=3]
+[ext_resource path="res://scenes/Pentagono.tscn" type="PackedScene" id=4]
+[ext_resource path="res://img/piso1.png" type="Texture" id=5]
+[ext_resource path="res://img/piso2.png" type="Texture" id=6]
+[ext_resource path="res://scripts/Level 4.gd" type="Script" id=7]
+[ext_resource path="res://img/background.jpg" type="Texture" id=8]
+[ext_resource path="res://scenes/AvanzarLbl.tscn" type="PackedScene" id=9]
+[ext_resource path="res://scenes/RestartButton.tscn" type="PackedScene" id=10]
+[ext_resource path="res://scenes/ExitBtn.tscn" type="PackedScene" id=11]
+[ext_resource path="res://scenes/BackgroundPlayer.tscn" type="PackedScene" id=12]
+
+[sub_resource type="RectangleShape2D" id=1]
+extents = Vector2( 366.005, 95.0792 )
+
+[sub_resource type="RectangleShape2D" id=2]
+extents = Vector2( 99.3857, 21.57 )
+
+[node name="Level 4" type="Node2D"]
+script = ExtResource( 7 )
+
+[node name="ParallaxBackground" type="ParallaxBackground" parent="."]
+
+[node name="ParallaxLayer" type="ParallaxLayer" parent="ParallaxBackground"]
+
+[node name="piso2" type="Sprite" parent="ParallaxBackground/ParallaxLayer"]
+position = Vector2( 1185.76, 574.823 )
+scale = Vector2( 2.00613, 3.11893 )
+texture = ExtResource( 6 )
+
+[node name="piso3" type="Sprite" parent="ParallaxBackground/ParallaxLayer"]
+position = Vector2( 365.297, 575.085 )
+scale = Vector2( 7.76975, 3.11893 )
+texture = ExtResource( 6 )
+
+[node name="piso1" type="Sprite" parent="ParallaxBackground/ParallaxLayer"]
+position = Vector2( 365.142, 466.758 )
+scale = Vector2( 7.77303, 1 )
+texture = ExtResource( 5 )
+
+[node name="piso4" type="Sprite" parent="ParallaxBackground/ParallaxLayer"]
+position = Vector2( 1185.57, 475.217 )
+scale = Vector2( 2.0103, 1 )
+texture = ExtResource( 5 )
+
+[node name="StaticBody2D" type="StaticBody2D" parent="ParallaxBackground/ParallaxLayer"]
+
+[node name="Floor" type="CollisionShape2D" parent="ParallaxBackground/ParallaxLayer/StaticBody2D"]
+position = Vector2( 363.902, 515.258 )
+shape = SubResource( 1 )
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="ParallaxBackground/ParallaxLayer/StaticBody2D"]
+position = Vector2( 1190.55, 450.068 )
+shape = SubResource( 2 )
+
+[node name="background" type="Sprite" parent="ParallaxBackground/ParallaxLayer"]
+position = Vector2( 638.947, 410.491 )
+z_index = -1
+texture = ExtResource( 8 )
+
+[node name="PolygonEnd" parent="." instance=ExtResource( 4 )]
+position = Vector2( -0.190125, -194.217 )
+
+[node name="Caja1" parent="." instance=ExtResource( 3 )]
+position = Vector2( -107.573, -78.0027 )
+mode = 3
+
+[node name="Caja2" parent="." instance=ExtResource( 3 )]
+position = Vector2( 101.03, -80.8311 )
+mode = 3
+
+[node name="Caja3" parent="." instance=ExtResource( 3 )]
+position = Vector2( -3.01862, -78.0027 )
+mode = 3
+
+[node name="Violeta" parent="." instance=ExtResource( 1 )]
+position = Vector2( -160.082, -86.7813 )
+
+[node name="Plataforma1" parent="." instance=ExtResource( 2 )]
+
+[node name="Plataforma2" parent="." instance=ExtResource( 2 )]
+position = Vector2( 666.615, 411.334 )
+
+[node name="AvanzarLbl" parent="." instance=ExtResource( 9 )]
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+text = "Felicitaciones! Has ganado
+Presiona N para volver al menu"
+
+[node name="RestartButton" parent="." instance=ExtResource( 10 )]
+margin_left = 1213.33
+margin_top = 35.7625
+margin_right = 1241.33
+margin_bottom = 71.7625
+
+[node name="PolygonStart" parent="." instance=ExtResource( 4 )]
+position = Vector2( -1001.31, -204.544 )
+
+[node name="ExitBtn" parent="." instance=ExtResource( 11 )]
+position = Vector2( 927.568, -483.413 )
+
+[node name="BackgroundPlayer" parent="." instance=ExtResource( 12 )]
+[connection signal="body_entered" from="PolygonEnd" to="." method="_on_PolygonEnd_body_entered"]
+[connection signal="body_exited" from="PolygonEnd" to="." method="_on_PolygonEnd_body_exited"]
+[connection signal="pressed" from="RestartButton" to="." method="_on_RestartButton_pressed"]

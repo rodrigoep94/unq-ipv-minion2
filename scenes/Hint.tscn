@@ -1,0 +1,21 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://fonts/karma future.ttf" type="DynamicFontData" id=1]
+
+[sub_resource type="DynamicFont" id=3]
+size = 35
+font_data = ExtResource( 1 )
+
+[node name="Hint" type="Label"]
+margin_left = 26.6968
+margin_top = 173.529
+margin_right = 544.697
+margin_bottom = 278.529
+custom_fonts/font = SubResource( 3 )
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+text = "Podés usar la plataforma
+ para pasar al otro lado"
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}

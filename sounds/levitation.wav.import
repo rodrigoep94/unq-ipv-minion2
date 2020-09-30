@@ -1,0 +1,21 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/levitation.wav-21d204da4c92eaafb49f623048974ee6.sample"
+
+[deps]
+
+source_file="res://sounds/levitation.wav"
+dest_files=[ "res://.import/levitation.wav-21d204da4c92eaafb49f623048974ee6.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop=false
+compress/mode=0
